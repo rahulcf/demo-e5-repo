@@ -1,0 +1,22 @@
+﻿version: 0.2
+env:
+  variables:
+    DOTNET_ROOT: /root/.dotnet
+  secrets-manager:
+    AWS_ACCESS_KEY_ID_PARAM: CodeBuild:AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY_PARAM: CodeBuild:AWS_SECRET_ACCESS_KEY
+phases:
+  install:
+    runtime-versions:
+      dotnet: 3.1
+  pre_build:
+    commands:
+      - echo Starting build process
+  build:
+    commands:
+      - echo Build started on `date`
+      - dotnet restore
+      - dotnet build -c Release
+ artifacts:
+  files:
+   -.bin\Release\*
